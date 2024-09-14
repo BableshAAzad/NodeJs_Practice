@@ -87,9 +87,14 @@
 // app.listen(5000)
 
 // !-----------------html pages in express js-----------------------
+const path = require("path")
+
 const express = require("express")
 const app = express();
 
+const publicPath = path.join(__dirname, "public")
+// console.log(publicPath)
+app.use(express.static(publicPath));
 
 
 
