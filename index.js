@@ -132,11 +132,15 @@ app.get("/profile", (req, resp) => {
     let user = {
         name : "Bablesh AAzad",
         email : "bableshaazad@outlool.com",
-        city : "Bengalore"
+        city : "Bengalore",
+        skills : ["java", "js", "mysql", "python", "reactjs"]
     }
     resp.render(`profile`, {user})
 })
 
+app.get("/login", (req, resp) => {
+    resp.render(`login`)
+})
+
 
 app.listen(5000)
-// test commit dev
