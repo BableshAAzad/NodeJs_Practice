@@ -87,29 +87,55 @@
 // app.listen(5000)
 
 // !-----------------html pages  with custom URL express js-----------------------
-const path = require("path")
-const express = require("express")
+// const path = require("path")
+// const express = require("express")
 
-const app = express();
+// const app = express();
 
-const publicPath = path.join(__dirname, "public")
+// const publicPath = path.join(__dirname, "public")
 // console.log(publicPath)
 // app.use(express.static(publicPath));
 
-app.get("", (req, resp) => {
-    resp.sendFile(`${publicPath}/index.html`)
+// app.get("", (req, resp) => {
+//     resp.sendFile(`${publicPath}/index.html`)
+// })
+
+// app.get("/about", (req, resp) => {
+//     resp.sendFile(`${publicPath}/about.html`)
+// })
+
+// app.get("/contact", (req, resp) => {
+//     resp.sendFile(`${publicPath}/contact.html`)
+// })
+
+// app.get("*", (req, resp) => {
+//     resp.sendFile(`${publicPath}/help.html`)
+// })
+
+// app.listen(5000)
+
+
+// *----------------Template Engine express js-----------------------
+// ~ What is template engine?
+// & Template engine is provided dynamic pages eg. ejs etc
+// ^ npm i ejs
+// ^ create a folder and default name is views
+// ^ inside view folder create file with .ejs like profile.ejs
+
+const express = require("express")
+
+const app = express();
+app.set(`view engine`, `ejs`)
+
+
+app.get("/profile", (req, resp) => {
+    let user = {
+        name : "Bablesh AAzad",
+        email : "bableshaazad@outlool.com",
+        city : "Bengalore"
+    }
+    resp.render(`profile`, {user})
 })
 
-app.get("/about", (req, resp) => {
-    resp.sendFile(`${publicPath}/about.html`)
-})
-
-app.get("/contact", (req, resp) => {
-    resp.sendFile(`${publicPath}/contact.html`)
-})
-
-app.get("*", (req, resp) => {
-    resp.sendFile(`${publicPath}/help.html`)
-})
 
 app.listen(5000)
