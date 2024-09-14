@@ -86,16 +86,30 @@
 
 // app.listen(5000)
 
-// !-----------------html pages in express js-----------------------
+// !-----------------html pages  with custom URL express js-----------------------
 const path = require("path")
-
 const express = require("express")
+
 const app = express();
 
 const publicPath = path.join(__dirname, "public")
 // console.log(publicPath)
-app.use(express.static(publicPath));
+// app.use(express.static(publicPath));
 
+app.get("", (req, resp) => {
+    resp.sendFile(`${publicPath}/index.html`)
+})
 
+app.get("/about", (req, resp) => {
+    resp.sendFile(`${publicPath}/about.html`)
+})
+
+app.get("/contact", (req, resp) => {
+    resp.sendFile(`${publicPath}/contact.html`)
+})
+
+app.get("*", (req, resp) => {
+    resp.sendFile(`${publicPath}/help.html`)
+})
 
 app.listen(5000)
