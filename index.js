@@ -122,25 +122,59 @@
 // ^ create a folder and default name is views
 // ^ inside view folder create file with .ejs like profile.ejs
 
+// const express = require("express")
+
+// const app = express();
+// app.set(`view engine`, `ejs`)
+
+
+// app.get("/profile", (req, resp) => {
+//     let user = {
+//         name : "Bablesh AAzad",
+//         email : "bableshaazad@outlool.com",
+//         city : "Bengalore",
+//         skills : ["java", "js", "mysql", "python", "reactjs"]
+//     }
+//     resp.render(`profile`, {user})
+// })
+
+// app.get("/login", (req, resp) => {
+//     resp.render(`login`)
+// })
+
+// app.listen(5000)
+
+// &---------------------- Middleware ---------------------------------------------------
+// Middleware is used to protect route and checking authentication and authorization
+//~ Types of middleware
+//1. Application level middleware
+//2. Router level middleware
+//3. Error Handling middleware
+//4. Built-in middleware
+//5. Third party middleware
+
 const express = require("express")
 
 const app = express();
-app.set(`view engine`, `ejs`)
+const reqFilter = (req, resp, next) => {
+    if (!req.query.age) {
+        resp.send("Please Provide Age")
+    } else if (req.query.age < 18) {
+        resp.send("You are under 18")
+    } else
+        next()
+}
 
+app.use(reqFilter)
 
-app.get("/profile", (req, resp) => {
-    let user = {
-        name : "Bablesh AAzad",
-        email : "bableshaazad@outlool.com",
-        city : "Bengalore",
-        skills : ["java", "js", "mysql", "python", "reactjs"]
-    }
-    resp.render(`profile`, {user})
+app.get("/", (req, resp) => {
+    resp.send(`Welcome to Home page`)
 })
 
-app.get("/login", (req, resp) => {
-    resp.render(`login`)
+app.get("/user", (req, resp) => {
+    resp.send(`Welcome to User page`)
 })
+
 
 
 app.listen(5000)
