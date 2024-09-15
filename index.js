@@ -154,27 +154,28 @@
 //5. Third party middleware
 
 const express = require("express")
+const reqFilter = require("./middleware")
 
 const app = express();
-const reqFilter = (req, resp, next) => {
-    if (!req.query.age) {
-        resp.send("Please Provide Age")
-    } else if (req.query.age < 18) {
-        resp.send("You are under 18")
-    } else
-        next()
-}
+const route = express.Router()
 
-app.use(reqFilter)
+route.use(reqFilter)
 
-app.get("/", (req, resp) => {
+app.get("/", (req, resp) => { // if you not want to apply then choose app otherwise route
     resp.send(`Welcome to Home page`)
 })
 
-app.get("/user", (req, resp) => {
+route.get("/user", (req, resp) => { // if you use in route level middleware then it apply only in that route
     resp.send(`Welcome to User page`)
 })
 
+route.get("/about", (req, resp) => {
+    resp.send(`Welcome to About page`)
+})
 
+route.get("/contact", (req, resp) => {
+    resp.send(`Welcome to Contact page`)
+})
 
+app.use("/", route)
 app.listen(5000)
