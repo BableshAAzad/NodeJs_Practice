@@ -184,18 +184,20 @@
 
 // CRUD operation using mongodb
 
-const { MongoClient } = require("mongodb")
-// or  const MongoClient = require("mongodb").MongoClient
-const url = "mongodb://localhost:27017"
-const client = new MongoClient(url)
-const database = "mongodbtest"
+const dbConnection = require("./mongodb")
 
-async function getData() {
-    let result = await client.connect()
-    let db = result.db(database)
-    let collection = db.collection("student")
+//& Print all data in saparet funtion 
+// dbConnection().then((resp)=>{
+//    resp.find({}).toArray().then((data)=>{
+//     console.log(data)
+//    })
+// })
 
-    let response =await collection.find({}).toArray()
-    console.log(response)
+//========= or ==============
+
+let main = async ()=>{
+  let data = await dbConnection();
+  data = await data.find().toArray()
+  console.log(data)
 }
-getData();
+main()
