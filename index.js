@@ -182,11 +182,11 @@
 
 //^ ------------------------------------Mongo DB------------------------------------------
 
-// CRUD operation using mongodb
+//! CRUD operation using mongodb
 
-const dbConnection = require("./mongodb")
+//& Read (CRUD)
+// const dbConnection = require("./mongodb")
 
-//& Print all data in saparet funtion 
 // dbConnection().then((resp)=>{
 //    resp.find({}).toArray().then((data)=>{
 //     console.log(data)
@@ -195,9 +195,54 @@ const dbConnection = require("./mongodb")
 
 //========= or ==============
 
-let main = async ()=>{
-  let data = await dbConnection();
-  data = await data.find().toArray()
-  console.log(data)
+// let main = async ()=>{
+//   let data = await dbConnection();
+//   data = await data.find().toArray()
+//   console.log(data)
+// }
+// main()
+
+//& Insert (CRUD)
+// const dbConnection = require("./mongodb")
+
+// let insertData = async () => {
+//     let db = await dbConnection();
+//     let response = await db.insertMany( // for single data you can use insertOne({...})
+//         [
+//             {
+//                 name: "Kumar",
+//                 email: "kumar@outlook.com",
+//                 city: "Gangtok",
+//                 age: 54
+//             },
+//             {
+//                 name: "AAzad",
+//                 email: "aazad@outlook.com",
+//                 city: "Bhilai",
+//                 age: 60
+//             },
+//             {
+//                 name: "Durgesh",
+//                 email: "durgesh@outlook.com",
+//                 city: "Raipur",
+//                 age: 53
+//             }
+//         ]
+//     )
+//     console.log(response)
+// }
+// insertData()
+
+//& Insert (CRUD)
+const dbConnection = require("./mongodb")
+
+let updateData = async () => {
+    let response = await dbConnection()
+    response = await response.updateOne(
+        { name: "Babloo" },
+        { $set: { city: "Bidar", age : 75 } }
+    )
+    console.log(response)
 }
-main()
+
+// updateData()
