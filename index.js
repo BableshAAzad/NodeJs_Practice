@@ -215,34 +215,45 @@
 //                 city: "Gangtok",
 //                 age: 54
 //             },
-//             {
-//                 name: "AAzad",
-//                 email: "aazad@outlook.com",
-//                 city: "Bhilai",
-//                 age: 60
-//             },
-//             {
-//                 name: "Durgesh",
-//                 email: "durgesh@outlook.com",
-//                 city: "Raipur",
-//                 age: 53
-//             }
+            // {
+            //     name: "AAzad",
+            //     email: "aazad@outlook.com",
+            //     city: "Bhilai",
+            //     age: 60
+            // },
+            // {
+            //     name: "Durgesh",
+            //     email: "durgesh@outlook.com",
+            //     city: "Raipur",
+            //     age: 53
+            // }
 //         ]
 //     )
 //     console.log(response)
 // }
 // insertData()
 
-//& Insert (CRUD)
+//& Update (CRUD)
+// const dbConnection = require("./mongodb")
+
+// let updateData = async () => {
+//     let response = await dbConnection()
+//     response = await response.updateOne(
+//         { name: "Babloo" },
+//         { $set: { city: "Bidar", age : 75 } }
+//     )
+//     console.log(response)
+// }
+
+// updateData()
+
+//& Delete (CRUD)
 const dbConnection = require("./mongodb")
 
-let updateData = async () => {
+let deleteData = async () => {
     let response = await dbConnection()
-    response = await response.updateOne(
-        { name: "Babloo" },
-        { $set: { city: "Bidar", age : 75 } }
-    )
+    response = await response.deleteMany({ name: "Kumar" })
     console.log(response)
 }
 
-// updateData()
+deleteData()
