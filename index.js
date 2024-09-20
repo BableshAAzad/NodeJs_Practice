@@ -215,18 +215,18 @@
 //                 city: "Gangtok",
 //                 age: 54
 //             },
-            // {
-            //     name: "AAzad",
-            //     email: "aazad@outlook.com",
-            //     city: "Bhilai",
-            //     age: 60
-            // },
-            // {
-            //     name: "Durgesh",
-            //     email: "durgesh@outlook.com",
-            //     city: "Raipur",
-            //     age: 53
-            // }
+// {
+//     name: "AAzad",
+//     email: "aazad@outlook.com",
+//     city: "Bhilai",
+//     age: 60
+// },
+// {
+//     name: "Durgesh",
+//     email: "durgesh@outlook.com",
+//     city: "Raipur",
+//     age: 53
+// }
 //         ]
 //     )
 //     console.log(response)
@@ -257,3 +257,28 @@
 // }
 
 // deleteData()
+
+// *------------- MySql database ----------------------------
+const mysql = require("mysql2")
+const conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "ecommerce"
+})
+
+conn.connect((err) => {
+    if (err) {
+        console.error("Error", err)
+    } else {
+        console.log("connected")
+    }
+});
+
+conn.query("select * from user", (err, result) => {
+    if (err) {
+        console.error("Error", err)
+    } else {
+        console.log(result)
+    }
+})
