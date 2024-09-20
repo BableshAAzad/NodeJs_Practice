@@ -259,27 +259,94 @@
 // deleteData()
 
 // *------------- MySql database ----------------------------
-const mysql = require("mysql2")
+// const mysql = require("mysql2")
 
-const conn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "ecommerce"
+// const conn = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "root",
+//     database: "ecommerce"
+// })
+
+// conn.connect((err) => {
+//     if (err) {
+//         console.error("Error", err)
+//     } else {
+//         console.log("connected")
+//     }
+// });
+
+// conn.query("select * from user", (err, result) => {
+//     if (err) {
+//         console.error("Error", err)
+//     } else {
+//         console.log(result)
+//     }
+// })
+
+// *------------- MySql CRUD ----------------------------
+const conn = require("./mysqlConfig")
+const express = require("express")
+
+const app = express();
+app.use(express.json()) //~ For recieve incomming data in JSON format
+
+// ^ Fetch data ------------------
+app.get("/", (req, resp) => {
+    conn.query("select * from user", (err, result) => {
+        if (err) {
+            resp.send("Error", err)
+        } else {
+            resp.send(result)
+        }
+    })
 })
 
-conn.connect((err) => {
-    if (err) {
-        console.error("Error", err)
-    } else {
-        console.log("connected")
-    }
-});
-
-conn.query("select * from user", (err, result) => {
-    if (err) {
-        console.error("Error", err)
-    } else {
-        console.log(result)
-    }
+// ^ Insert data ------------------
+app.post("/", (req, resp) => {
+    conn.query("insert into user set ?", req.body, (error, result, fields) => {
+        if (error) error;
+        resp.send(result);
+    })
 })
+
+// ^ Update data -------------------
+app.put("/:id", (req, resp) => {
+    const data = [
+        req.body.user_address,
+        req.body.user_email,
+        req.body.user_name,
+        req.body.user_password,
+        req.body.user_phone,
+        req.body.user_pic,
+        req.body.user_type,
+        req.params.id
+    ]
+    console.log(data)
+    conn.query(`UPDATE user SET
+         user_address=?,
+          user_email=?,
+          user_name=?,
+          user_password=?,
+          user_phone=?,
+          user_pic=?,
+          user_type=?
+          WHERE user_id=?
+           `, data, (error, result, fields) => {
+        if (error) throw error;
+        resp.send(result);
+    })
+})
+// ^ Delete data
+app.delete("/:id", (req, resp) => {
+    conn.query(`delete from user where user_id=${req.params.id}`,
+        (error, result, fields) => {
+            if (error) throw error;
+            resp.send(result);
+        }
+    )
+})
+
+
+
+app.listen(5000)
