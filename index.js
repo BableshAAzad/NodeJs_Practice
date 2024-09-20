@@ -248,12 +248,12 @@
 // updateData()
 
 //& Delete (CRUD)
-const dbConnection = require("./mongodb")
+// const dbConnection = require("./mongodb")
 
-let deleteData = async () => {
-    let response = await dbConnection()
-    response = await response.deleteMany({ name: "Kumar" })
-    console.log(response)
-}
+// let deleteData = async () => {
+//     let response = await dbConnection()
+//     response = await response.deleteMany({ name: "Kumar" })
+//     console.log(response)
+// }
 
-deleteData()
+// deleteData()
